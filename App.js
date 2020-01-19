@@ -242,26 +242,14 @@ export default class App extends Component {
 
                 <View style={{flexDirection:"row",justifyContent:"space-around",paddingVertical:30}}>
                 <Button disabled={this.state.loading || !(this.state.bleOpend && this.state.boundAddress.length > 0 )}
-                        title="ESC/POS" onPress={()=>{
-                    this.props.navigator.push({
-                        component:EscPos,
-                        passProps:{
-                            name:this.state.name,
-                            boundAddress:this.state.boundAddress
-                        }
-                    })
+                        title="ESC/POS" onPress={async ()=>{
+                          await BluetoothEscposPrinter.printerInit();
+                          await  BluetoothEscposPrinter.printText("Printer test text!!!\r\n\r\n", {});
                 }}/>
                 <Button disabled={this.state.loading|| !(this.state.bleOpend && this.state.boundAddress.length > 0) }
                         title="TSC" onPress={()=>{
-                   this.props.navigator.push({
-                       component:Tsc,
-                       passProps:{
-                           name:this.state.name,
-                           boundAddress:this.state.boundAddress
-                       }
-                   })
-                }
-                }/>
+                          
+                }}/>
                 </View>
             </ScrollView>
         );
